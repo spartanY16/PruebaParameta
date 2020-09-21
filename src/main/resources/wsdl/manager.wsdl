@@ -1,0 +1,70 @@
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch="http://www.parameta-soap-service.com/parameta/soap/manager"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.parameta-soap-service.com/parameta/soap/manager"
+	targetNamespace="http://www.parameta-soap-service.com/parameta/soap/manager">
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://www.parameta-soap-service.com/parameta/soap/manager">
+			<xsd:element name="CustomerRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="nombres" type="xsd:string" />
+						<xsd:element name="apellidos" type="xsd:string" />
+						<xsd:element name="tipoDeDocumento" type="xsd:string" />
+						<xsd:element name="numeroDeDocumento"
+							type="xsd:string" />
+						<xsd:element name="fechaDeNacimiento"
+							type="xsd:string" />
+						<xsd:element name="fechaDeVinculacion"
+							type="xsd:string" />
+						<xsd:element name="cargo" type="xsd:string" />
+						<xsd:element name="salario" type="xsd:double" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Response">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="consumoExitoso" type="xsd:boolean" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CustomerRequest">
+		<wsdl:part element="tns:CustomerRequest"
+			name="CustomerRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="Response">
+		<wsdl:part element="tns:Response" name="Response">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="GestionarEmpleado">
+		<wsdl:operation name="Customer">
+			<wsdl:input message="tns:CustomerRequest"
+				name="CustomerRequest">
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GestionarEmpleadoSoap11"
+		type="tns:GestionarEmpleado">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="Customer">
+			<soap:operation soapAction="" />
+			<wsdl:input name="CustomerRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GestionarEmpleadoService">
+		<wsdl:port binding="tns:GestionarEmpleadoSoap11"
+			name="GestionarEmpleadoSoap11">
+			<soap:address location="http://localhost:8050/ws" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
